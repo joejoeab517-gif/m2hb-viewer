@@ -132,13 +132,26 @@ function __noslide(o){
 }
 </script>
 <script>
+function __nogroup(o){
+ var K={dabba:1,nabbad_dabba:1,mizlaj_dabba:1,sp_dabba:1,sp_nabbad_dabba:1,sp_mizlaj_dabba:1};
+ function w(v,key){
+  if(Array.isArray(v)){
+   if(key==='sp')return v.filter(function(e){return !(Array.isArray(e)&&K[e[0]])}).map(function(e){return w(e,null)});
+   if(key==='hl')return v.filter(function(e){return !K[e]});
+   return v.map(function(e){return w(e,null)});
+  }
+  if(v&&typeof v==='object'){var r={};for(var k in v)r[k]=w(v[k],k);return r;}
+  return v;
+ }
+ return w(o,null);
+}
 function __unplace(sp){
- var T={dabba:{tx:0.4,ty:2.9,tz:-0.4},nabbad_dabba:{tx:0.4,ty:2.9,tz:1.2},mizlaj_dabba:{tx:0.4,ty:2.9,tz:2.7}};
+ var G={dabba:1,nabbad_dabba:1,mizlaj_dabba:1};
  (sp.parts||[]).forEach(function(p){
-  if(T[p.key]){
-   p.t=T[p.key];
-   p.lim=['عرض منفصل للتعرّف على القطع — لا يبيّن موضع تركيبها.'];
-   p.unplaced='عرض منفصل للتعرّف على القطع — لا يبيّن موضع تركيبها. المجموعة في الكتاب: «الضبة + نباضها + مزلاجها» (الدرس 1-2 ص 7 بند 18). صورة الدرس في البطاقة هي المرجع — اضغط عليها للتكبير.';
+  if(G[p.key]){
+   delete p.t;
+   p.lim=['لا تُعرض هذه القطعة في النموذج ثلاثي الأبعاد.'];
+   p.unplaced='التعرّف بالاسم وصورة المرجع فقط — لا يُعرض موضع تركيبها. المجموعة في الكتاب: «الضبة + نباضها + مزلاجها» (الدرس 1-2 ص 7 بند 18). صورة المرجع في البطاقة — اضغط عليها للتكبير.';
   }
  });
  return sp;
@@ -151,7 +164,7 @@ document.addEventListener('click',function(e){
   var o=document.getElementById('__pz');
   if(!o){o=document.createElement('div');o.id='__pz';o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99;display:flex;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:8px';
    o.onclick=function(){o.style.display='none';};document.body.appendChild(o);}
-  o.innerHTML='<img src="'+t.src+'" style="max-width:96vw;max-height:88vh;object-fit:contain"><div style="color:#ffd166;font-size:14px">صورة الدرس المعتمدة — اضغط للإغلاق</div>';
+  o.innerHTML='<img src="'+t.src+'" style="max-width:96vw;max-height:88vh;object-fit:contain"><div style="color:#ffd166;font-size:14px">صورة المرجع — اضغط للإغلاق</div>';
   o.style.display='flex';
  }
 },true);
@@ -4374,7 +4387,7 @@ document.getElementById('openBP').onclick=openPanel;
 document.getElementById('pclose').onclick=function(){pan.classList.remove('on')};
 document.addEventListener('keydown',function(e){if(e.key==='Escape')pan.classList.remove('on')});
 
-var STEPS=__noslide(JSON.parse(document.getElementById('steps-data').textContent));
+var STEPS=__nogroup(__noslide(JSON.parse(document.getElementById('steps-data').textContent)));
 var TERMS=__noslide(JSON.parse(document.getElementById('terms-data').textContent));
 var PHOTOS=JSON.parse(document.getElementById('photo-data').textContent);
 var lb=document.getElementById('lb');lb.onclick=function(){lb.classList.remove('on')};
@@ -4517,7 +4530,7 @@ window.__showTab=showTab;window.__P=P;window.__goStep=goStep;window.__setMode=se
 var SPM=__unplace(__noslide(JSON.parse(document.getElementById('spmeta-data').textContent)));
 var SPG_B64=JSON.parse(document.getElementById('spglb-data').textContent);
 var SPPH=JSON.parse(document.getElementById('spphoto-data').textContent);
-var T3=__noslide(JSON.parse(document.getElementById('t3-data').textContent));
+var T3=__nogroup(__noslide(JSON.parse(document.getElementById('t3-data').textContent)));
 var T3IMG=JSON.parse(document.getElementById('t3img-data').textContent);
 var SPG=new THREE.Group();SPG.visible=false;var spObj={},SPON=false,T3ON=false,spReady=false;
 SPM.parts.forEach(function(p){p.__sp=true;INTM.parts.push(p);});
