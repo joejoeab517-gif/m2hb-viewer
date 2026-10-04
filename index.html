@@ -133,16 +133,28 @@ function __noslide(o){
 </script>
 <script>
 function __unplace(sp){
- var T={dabba:{tx:0.416,ty:2.9,tz:2.475},nabbad_dabba:{tx:0.416,ty:1.75,tz:2.475},mizlaj_dabba:{rz:1.5708,tx:1.9,ty:2.3,tz:2.6}};
+ var T={dabba:{tx:0.4,ty:2.9,tz:-0.4},nabbad_dabba:{tx:0.4,ty:2.9,tz:1.2},mizlaj_dabba:{tx:0.4,ty:2.9,tz:2.7}};
  (sp.parts||[]).forEach(function(p){
   if(T[p.key]){
    p.t=T[p.key];
-   p.lim=['تُعرض المجموعة مفكّكة فوق مؤخرة المغلاق (ترتيب النزع) — لا مركّبة في مقرّها.','المقرّ الدقيق داخل المجرى غير مقاس؛ لا ادعاء تلامس أو تعشيق.'];
-   p.unplaced='المجموعة في الكتاب: «الضبة + نباضها + مزلاجها» (الدرس 1-2 ص 7 بند 18). تُنزع من مؤخرة المغلاق (تصوير المدرسة 4/10). العرض مفكّك للتعريف — المقرّ الدقيق غير مقاس.';
+   p.lim=['عرض منفصل للتعرّف على القطع — لا يبيّن موضع تركيبها.'];
+   p.unplaced='عرض منفصل للتعرّف على القطع — لا يبيّن موضع تركيبها. المجموعة في الكتاب: «الضبة + نباضها + مزلاجها» (الدرس 1-2 ص 7 بند 18). صورة الدرس في البطاقة هي المرجع — اضغط عليها للتكبير.';
   }
  });
  return sp;
 }
+</script>
+<script>
+document.addEventListener('click',function(e){
+ var t=e.target;
+ if(t&&t.classList&&t.classList.contains('spph')){
+  var o=document.getElementById('__pz');
+  if(!o){o=document.createElement('div');o.id='__pz';o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99;display:flex;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:8px';
+   o.onclick=function(){o.style.display='none';};document.body.appendChild(o);}
+  o.innerHTML='<img src="'+t.src+'" style="max-width:96vw;max-height:88vh;object-fit:contain"><div style="color:#ffd166;font-size:14px">صورة الدرس المعتمدة — اضغط للإغلاق</div>';
+  o.style.display='flex';
+ }
+},true);
 </script>
 <style id="mobilefix">@media (max-width:800px){
 .card{left:6px!important;right:6px!important;top:auto!important;bottom:6px!important;max-width:none!important;max-height:44%!important;overflow:auto!important;z-index:8!important}
