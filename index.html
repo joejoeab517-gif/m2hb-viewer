@@ -131,6 +131,19 @@ function __noslide(o){
  return w(o);
 }
 </script>
+<script>
+function __unplace(sp){
+ var T={dabba:{tx:0.416,ty:2.9,tz:2.475},nabbad_dabba:{tx:0.416,ty:1.75,tz:2.475},mizlaj_dabba:{rz:1.5708,tx:1.9,ty:2.3,tz:2.6}};
+ (sp.parts||[]).forEach(function(p){
+  if(T[p.key]){
+   p.t=T[p.key];
+   p.lim=['تُعرض المجموعة مفكّكة فوق مؤخرة المغلاق (ترتيب النزع) — لا مركّبة في مقرّها.','المقرّ الدقيق داخل المجرى غير مقاس؛ لا ادعاء تلامس أو تعشيق.'];
+   p.unplaced='المجموعة في الكتاب: «الضبة + نباضها + مزلاجها» (الدرس 1-2 ص 7 بند 18). تُنزع من مؤخرة المغلاق (تصوير المدرسة 4/10). العرض مفكّك للتعريف — المقرّ الدقيق غير مقاس.';
+  }
+ });
+ return sp;
+}
+</script>
 <style id="mobilefix">@media (max-width:800px){
 .card{left:6px!important;right:6px!important;top:auto!important;bottom:6px!important;max-width:none!important;max-height:44%!important;overflow:auto!important;z-index:8!important}
 #lead{display:none!important}
@@ -4489,7 +4502,7 @@ function showTab(t){if(t!=='op'&&window.__t3Off)window.__t3Off();if(t!=='names')
 }
 window.__showTab=showTab;window.__P=P;window.__goStep=goStep;window.__setMode=setMode;window.__RIG=RIG;
 
-var SPM=__noslide(JSON.parse(document.getElementById('spmeta-data').textContent));
+var SPM=__unplace(__noslide(JSON.parse(document.getElementById('spmeta-data').textContent)));
 var SPG_B64=JSON.parse(document.getElementById('spglb-data').textContent);
 var SPPH=JSON.parse(document.getElementById('spphoto-data').textContent);
 var T3=__noslide(JSON.parse(document.getElementById('t3-data').textContent));
